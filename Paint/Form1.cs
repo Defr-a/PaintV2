@@ -14,17 +14,16 @@ namespace Paint
         }
         //Variables
         #region
-        protected bool saved = false;
-        protected Bitmap b;
-        protected Graphics g;
-        protected bool paint = false;
-        protected Point px, py;
-        protected Pen pen = new Pen(Color.Black, 1);
-        protected static int FuncType = 0;
         protected static bool TboxOpen = false;
+        protected bool saved = false;
+        protected bool paint = false;
+        protected static int FuncType = 0;
         private int x, y, cX, cY, Sx, Sy;
         private int orWidth = 1000, orHeight = 750;
-        private float zoomMultiplier = 1.0f;
+        protected Point px, py;
+        protected Bitmap b;
+        protected Graphics g;
+        protected Pen pen = new Pen(Color.Black, 1);
         private Stack<Bitmap> undoStack = new Stack<Bitmap>();
         private Stack<Bitmap> redoStack = new Stack<Bitmap>();
         #endregion
