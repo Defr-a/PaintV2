@@ -33,7 +33,6 @@
             pictureBox1 = new PictureBox();
             FillPb = new PictureBox();
             ElipsePb = new PictureBox();
-            TextPb = new PictureBox();
             PencilPb = new PictureBox();
             LinePb = new PictureBox();
             RectanglePb = new PictureBox();
@@ -43,7 +42,6 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)FillPb).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ElipsePb).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)TextPb).BeginInit();
             ((System.ComponentModel.ISupportInitialize)PencilPb).BeginInit();
             ((System.ComponentModel.ISupportInitialize)LinePb).BeginInit();
             ((System.ComponentModel.ISupportInitialize)RectanglePb).BeginInit();
@@ -102,6 +100,7 @@
             // 
             ElipsePb.AccessibleName = "Ellipse (E)";
             ElipsePb.BackgroundImage = (Image)resources.GetObject("ElipsePb.BackgroundImage");
+            ElipsePb.BackgroundImageLayout = ImageLayout.Center;
             ElipsePb.Location = new Point(12, 125);
             ElipsePb.Name = "ElipsePb";
             ElipsePb.Size = new Size(43, 40);
@@ -111,24 +110,11 @@
             ElipsePb.MouseEnter += PictureBox_MouseEnter;
             ElipsePb.MouseLeave += PictureBox_MouseLeave;
             // 
-            // TextPb
-            // 
-            TextPb.AccessibleName = "Text(T)";
-            TextPb.BackgroundImage = (Image)resources.GetObject("TextPb.BackgroundImage");
-            TextPb.Location = new Point(12, 180);
-            TextPb.Name = "TextPb";
-            TextPb.Size = new Size(40, 40);
-            TextPb.TabIndex = 5;
-            TextPb.TabStop = false;
-            TextPb.Click += TextPb_Click;
-            TextPb.MouseEnter += PictureBox_MouseEnter;
-            TextPb.MouseLeave += PictureBox_MouseLeave;
-            // 
             // PencilPb
             // 
             PencilPb.AccessibleName = "Pencil (P)";
             PencilPb.BackgroundImage = (Image)resources.GetObject("PencilPb.BackgroundImage");
-            PencilPb.Location = new Point(12, 240);
+            PencilPb.Location = new Point(96, 180);
             PencilPb.Name = "PencilPb";
             PencilPb.Size = new Size(40, 40);
             PencilPb.TabIndex = 6;
@@ -167,7 +153,7 @@
             // 
             ColoPickPb.AccessibleName = "Color Picker (K)";
             ColoPickPb.BackgroundImage = (Image)resources.GetObject("ColoPickPb.BackgroundImage");
-            ColoPickPb.Location = new Point(96, 180);
+            ColoPickPb.Location = new Point(12, 180);
             ColoPickPb.Name = "ColoPickPb";
             ColoPickPb.Size = new Size(40, 40);
             ColoPickPb.TabIndex = 10;
@@ -180,7 +166,7 @@
             // 
             MovePb.AccessibleName = "Move (M)";
             MovePb.BackgroundImage = (Image)resources.GetObject("MovePb.BackgroundImage");
-            MovePb.Location = new Point(96, 240);
+            MovePb.Location = new Point(55, 240);
             MovePb.Name = "MovePb";
             MovePb.Size = new Size(40, 40);
             MovePb.TabIndex = 11;
@@ -199,7 +185,6 @@
             Controls.Add(RectanglePb);
             Controls.Add(LinePb);
             Controls.Add(PencilPb);
-            Controls.Add(TextPb);
             Controls.Add(ElipsePb);
             Controls.Add(FillPb);
             Controls.Add(pictureBox1);
@@ -212,11 +197,11 @@
             ShowInTaskbar = false;
             Text = "Tools";
             FormClosed += ToolBox_FormClosed;
+            Load += ToolBox_Load;
             Controls.SetChildIndex(Brush_Pb, 0);
             Controls.SetChildIndex(pictureBox1, 0);
             Controls.SetChildIndex(FillPb, 0);
             Controls.SetChildIndex(ElipsePb, 0);
-            Controls.SetChildIndex(TextPb, 0);
             Controls.SetChildIndex(PencilPb, 0);
             Controls.SetChildIndex(LinePb, 0);
             Controls.SetChildIndex(RectanglePb, 0);
@@ -226,7 +211,6 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)FillPb).EndInit();
             ((System.ComponentModel.ISupportInitialize)ElipsePb).EndInit();
-            ((System.ComponentModel.ISupportInitialize)TextPb).EndInit();
             ((System.ComponentModel.ISupportInitialize)PencilPb).EndInit();
             ((System.ComponentModel.ISupportInitialize)LinePb).EndInit();
             ((System.ComponentModel.ISupportInitialize)RectanglePb).EndInit();
@@ -242,7 +226,6 @@
         private PictureBox pictureBox1;
         private PictureBox FillPb;
         private PictureBox ElipsePb;
-        private PictureBox TextPb;
         private PictureBox PencilPb;
         private PictureBox LinePb;
         private PictureBox RectanglePb;

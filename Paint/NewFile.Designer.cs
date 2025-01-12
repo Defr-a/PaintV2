@@ -107,6 +107,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(CancelBtn);
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "NewFile";
             Text = "New File";
             ((System.ComponentModel.ISupportInitialize)HeightNUD).EndInit();

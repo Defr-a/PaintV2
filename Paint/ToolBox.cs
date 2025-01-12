@@ -18,11 +18,6 @@ namespace Paint
             InitializeComponent();
         }
 
-        private void Brush_Pb_Click(object sender, EventArgs e)
-        {
-            FuncType = 1;
-        }
-
         private void PictureBox_MouseEnter(object sender, EventArgs e)
         {
             PictureBox pictureBox = sender as PictureBox;
@@ -48,14 +43,17 @@ namespace Paint
             }
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            FuncType = 2;
-        }
-
         private void ToolBox_FormClosed(object sender, FormClosedEventArgs e)
         {
             TboxOpen = false;
+        }
+        private void Brush_Pb_Click(object sender, EventArgs e)
+        {
+            FuncType = 1;
+        }
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            FuncType = 2;
         }
         private void FillPb_Click(object sender, EventArgs e)
         {
@@ -96,6 +94,11 @@ namespace Paint
         private void MovePb_Click(object sender, EventArgs e)
         {
             FuncType = 10;
+        }
+
+        private void ToolBox_Load(object sender, EventArgs e)
+        {
+            
         }
     }
 }

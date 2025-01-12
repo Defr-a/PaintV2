@@ -14,6 +14,7 @@ namespace Paint
     {
         public NewFile()
         {
+            this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
         }
         public int CanvasWidth { get; private set; }
@@ -35,6 +36,7 @@ namespace Paint
 
         private void CancelBtn_Click(object sender, EventArgs e)
         {
+            DialogResult = DialogResult.Cancel;
             this.Close();
         }
     }
