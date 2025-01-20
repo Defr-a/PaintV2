@@ -232,7 +232,7 @@
             // 
             Current.AutoSize = true;
             Current.ForeColor = Color.White;
-            Current.Location = new Point(321, 12);
+            Current.Location = new Point(310, 12);
             Current.Name = "Current";
             Current.Size = new Size(42, 20);
             Current.TabIndex = 3;
