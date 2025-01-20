@@ -12,11 +12,13 @@ namespace Paint
             this.StartPosition = FormStartPosition.Manual;
             New();
         }
-        //Variables
-        #region
+        #region Variables
         protected static bool TboxOpen = false;
         protected bool saved = false;
         protected bool paint = false;
+        protected bool panning = false;
+        protected bool load = false;
+        protected Image loadedImg = null;
         protected static int FuncType = 0;
         private int x, y, cX, cY, Sx, Sy;
         private int orWidth = 1000, orHeight = 750;
@@ -27,8 +29,7 @@ namespace Paint
         private Stack<Bitmap> undoStack = new Stack<Bitmap>();
         private Stack<Bitmap> redoStack = new Stack<Bitmap>();
         #endregion
-        //Functions
-        #region
+        #region Functions
         private void OpenTBox()
         {
             if (!TboxOpen)
@@ -57,9 +58,9 @@ namespace Paint
                 openFileDialog.Filter = "Image Files|*.bmp;*.jpg;*.jpeg;*.png";
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    Image importedImage = Image.FromFile(openFileDialog.FileName);
-                    g.DrawImage(importedImage, new Point(0, 0)); // Adjust position if needed
-                    Canvas_Img.Refresh();
+                    loadedImg = Image.FromFile(openFileDialog.FileName);
+                    load = true;
+                    Cursor.Current = Cursors.Arrow;
                 }
             }
         }
@@ -233,15 +234,15 @@ namespace Paint
             if (b != null)
             {
                 undoStack.Push(new Bitmap(b));
-                redoStack.Clear(); // Reset redo history
+                redoStack.Clear(); 
             }
         }
         private void Undo()
         {
             if (undoStack.Count > 0)
             {
-                redoStack.Push(new Bitmap(b)); // Save current state for redo
-                b = undoStack.Pop();           // Restore the last saved state
+                redoStack.Push(new Bitmap(b)); 
+                b = undoStack.Pop();           
                 g = Graphics.FromImage(b);
                 Canvas_Img.Image = b;
                 Canvas_Img.Refresh();
@@ -255,8 +256,8 @@ namespace Paint
         {
             if (redoStack.Count > 0)
             {
-                undoStack.Push(new Bitmap(b)); // Save current state for undo
-                b = redoStack.Pop();           // Restore the last undone state
+                undoStack.Push(new Bitmap(b)); 
+                b = redoStack.Pop();           
                 g = Graphics.FromImage(b);
                 Canvas_Img.Image = b;
                 Canvas_Img.Refresh();
@@ -267,19 +268,27 @@ namespace Paint
             }
         }
         #endregion
-        //Form-Realted Functions
-        #region
+        #region Form-Related Functions
         private void toolsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenTBox();
         }
         private void Canvas_Img_MouseDown(object sender, MouseEventArgs e)
         {
-            SaveState();
-            paint = true;
-            py = e.Location;
-            cX = e.X;
-            cY = e.Y;
+            if(FuncType != 8 && FuncType != 10 && FuncType != 0)
+            {
+                paint = true;
+                py = e.Location;
+                cX = e.X;
+                cY = e.Y;
+                SaveState();
+            }
+            if (load)
+            {
+                g.DrawImage(loadedImg, e.X, e.Y);
+                Cursor.Current = Cursors.Default;
+                load = false;
+            }
             if (FuncType == 8)
             {
                 BSizeNUD.Visible = false;
@@ -289,6 +298,7 @@ namespace Paint
             }
             if (FuncType == 10)
             {
+                panning = true;
                 Cursor.Current = Cursors.Hand;
                 Current.Text = "panning";
             }
@@ -347,7 +357,7 @@ namespace Paint
                 g.DrawLine(pen, px, py);
                 py = px;
             }
-            if (paint && FuncType == 10 && WorkPlacePnl.AutoScroll)
+            if (FuncType == 10 && WorkPlacePnl.AutoScroll && panning)
             {
                 Point currentMousePoint = e.Location;
                 int offsetX = currentMousePoint.X - py.X;
@@ -370,6 +380,7 @@ namespace Paint
         private void Canvas_Img_MouseUp(object sender, MouseEventArgs e)
         {
             paint = false;
+            panning = false;
             Sx = x - cX;
             Sy = y - cY;
             if (FuncType == 4)
@@ -488,8 +499,7 @@ namespace Paint
             Redo();
         }
         #endregion
-        //Keys
-        #region
+        #region Keys
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == (Keys.Control | Keys.Z))

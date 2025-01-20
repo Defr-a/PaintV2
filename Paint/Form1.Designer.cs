@@ -281,8 +281,7 @@
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             BackColor = SystemColors.ScrollBar;
             ClientSize = new Size(1902, 1033);
             Controls.Add(menuStrip1);
