@@ -222,6 +222,7 @@ namespace Paint
                     Canvas_Img.Width = importedImage.Width;
                     Canvas_Img.Height = importedImage.Height;
                     Canvas_Img.Image = b;
+                    CheckSize(importedImage.Width, importedImage.Height)
                     ReCenter();
                     g.Clear(Color.White);
                     g.DrawImage(importedImage, new Rectangle(0, 0, b.Width, b.Height));
