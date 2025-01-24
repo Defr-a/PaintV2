@@ -53,6 +53,7 @@ namespace Paint
         }
         private void Add()
         {
+            SaveState();
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.Filter = "Image Files|*.bmp;*.jpg;*.jpeg;*.png";
@@ -60,7 +61,7 @@ namespace Paint
                 {
                     loadedImg = Image.FromFile(openFileDialog.FileName);
                     load = true;
-                    Cursor.Current = Cursors.Arrow;
+                    Cursor.Current = Cursors.Hand;
                 }
             }
         }
@@ -222,7 +223,7 @@ namespace Paint
                     Canvas_Img.Width = importedImage.Width;
                     Canvas_Img.Height = importedImage.Height;
                     Canvas_Img.Image = b;
-                    CheckSize(importedImage.Width, importedImage.Height)
+                    CheckSize(importedImage.Width, importedImage.Height);
                     ReCenter();
                     g.Clear(Color.White);
                     g.DrawImage(importedImage, new Rectangle(0, 0, b.Width, b.Height));
