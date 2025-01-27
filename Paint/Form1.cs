@@ -53,6 +53,7 @@ namespace Paint
         }
         private void Add()
         {
+            SaveState();
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.Filter = "Image Files|*.bmp;*.jpg;*.jpeg;*.png";
@@ -60,7 +61,7 @@ namespace Paint
                 {
                     loadedImg = Image.FromFile(openFileDialog.FileName);
                     load = true;
-                    Cursor.Current = Cursors.Arrow;
+                    Cursor.Current = Cursors.Hand;
                 }
             }
         }
