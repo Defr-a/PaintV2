@@ -95,10 +95,5 @@ namespace Paint
         {
             FuncType = 10;
         }
-
-        private void ToolBox_Load(object sender, EventArgs e)
-        {
-            
-        }
     }
 }

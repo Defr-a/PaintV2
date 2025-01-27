@@ -48,7 +48,7 @@ namespace Paint
             }
             else
             {
-                MessageBox.Show("Impossibile creare piu di una ToolBox !");
+                MessageBox.Show("Cannot generate more than one toolbox!");
             }
         }
         private void Add()
@@ -92,14 +92,11 @@ namespace Paint
         }
         private void NewF()
         {
-            DialogResult d;
             NewFile prompt = new NewFile();
-            d = prompt.ShowDialog();
+            DialogResult d = prompt.ShowDialog();
             if (d == DialogResult.OK && saved)
             {
-                int newWidth = prompt.CanvasWidth;
-                int newHeight = prompt.CanvasHeight;
-                CheckSize(newWidth, newHeight);
+                CheckSize(prompt.CanvasWidth, prompt.CanvasHeight);
                 New();
                 return;
             }
@@ -110,9 +107,7 @@ namespace Paint
                 {
                     Save();
                 }
-                int newWidth = prompt.CanvasWidth;
-                int newHeight = prompt.CanvasHeight;
-                CheckSize(newWidth, newHeight);
+                CheckSize(prompt.CanvasWidth, prompt.CanvasHeight);
                 New();
             }
             else if (d == DialogResult.Cancel)
@@ -200,6 +195,7 @@ namespace Paint
             }
             else
             {
+                WorkPlacePnl.AutoScroll = false;
                 WorkPlacePnl.Width = newWt;
                 WorkPlacePnl.Height = newHt;
             }
@@ -222,6 +218,7 @@ namespace Paint
                     Canvas_Img.Width = importedImage.Width;
                     Canvas_Img.Height = importedImage.Height;
                     Canvas_Img.Image = b;
+                    CheckSize(importedImage.Width, importedImage.Height);
                     ReCenter();
                     g.Clear(Color.White);
                     g.DrawImage(importedImage, new Rectangle(0, 0, b.Width, b.Height));
@@ -288,6 +285,15 @@ namespace Paint
                 g.DrawImage(loadedImg, e.X, e.Y);
                 Cursor.Current = Cursors.Default;
                 load = false;
+                loadedImg.Dispose();
+            }
+            if (FuncType == 3)
+            {
+                BSizeNUD.Visible = false;
+                BrushSizeLb.Visible = false;
+                Current.Text = "bucket";
+                pen.Color = colorBox.BackColor;
+                Fill(b, e.X, e.Y, b.GetPixel(e.X, e.Y), pen.Color);
             }
             if (FuncType == 8)
             {
@@ -319,8 +325,6 @@ namespace Paint
                 pen.Color = colorBox.BackColor;
                 px = e.Location;
                 g.DrawLine(pen, px, py);
-                g.DrawLine(pen, px, py);
-                g.DrawLine(pen, px, py);
                 py = px;
             }
             if (paint && FuncType == 2)
@@ -332,8 +336,6 @@ namespace Paint
                 pen.Color = Color.White;
                 px = e.Location;
                 g.DrawLine(pen, px, py);
-                g.DrawLine(pen, px, py);
-                g.DrawLine(pen, px, py);
                 py = px;
             }
             if (paint && FuncType == 3)
@@ -341,10 +343,8 @@ namespace Paint
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 BSizeNUD.Visible = false;
                 BrushSizeLb.Visible = false;
-                Current.Text = "bucket";
                 pen.Color = colorBox.BackColor;
                 Fill(b, e.X, e.Y, b.GetPixel(e.X, e.Y), pen.Color);
-                Canvas_Img.Refresh();
             }
             if (paint && FuncType == 9)
             {

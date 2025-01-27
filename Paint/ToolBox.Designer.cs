@@ -197,7 +197,6 @@
             ShowInTaskbar = false;
             Text = "Tools";
             FormClosed += ToolBox_FormClosed;
-            Load += ToolBox_Load;
             Controls.SetChildIndex(Brush_Pb, 0);
             Controls.SetChildIndex(pictureBox1, 0);
             Controls.SetChildIndex(FillPb, 0);
